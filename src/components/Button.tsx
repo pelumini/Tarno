@@ -22,6 +22,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      onClick={onClick}
       disabled={disabled}
       className={`disabled:opacity-70 disabled:cursor-not-allowed rounded hover:opacity-80 transition w-full border-slate-700 flex items-center justify-center gap-2 ${
         outline ? "bg-white" : "bg-slate-700"

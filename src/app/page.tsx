@@ -1,5 +1,6 @@
 import HomeBanner from "@/components/HomeBanner";
 import ProductsList from "@/components/products/ProductsList";
+import { CartContextProvider } from "@/hooks/useCart";
 import Image from "next/image";
 
 export default function Home() {
