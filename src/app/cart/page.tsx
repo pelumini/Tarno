@@ -1,9 +1,12 @@
 import React from "react";
+import CartClient from "./_components/CartClient";
 
 const CartPage = () => {
   return (
-    <div>
-      <div>CartPage</div>
+    <div className="pt-8">
+      <div className="container">
+        <CartClient />
+      </div>
     </div>
   );
 };

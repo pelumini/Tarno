@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartProvider from "@/providers/CartProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
@@ -34,6 +35,11 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${poppins.className} text-slate-700`}
       >
+        <Toaster
+          toastOptions={{
+            style: { background: "rgb(51 65 85)", color: "#fff" },
+          }}
+        />
         <CartProvider>
           <div className="min-h-screen flex flex-col">
             <Navbar />
