@@ -1,13 +1,15 @@
 import ProductDetails from "@/components/products/ProductDetails";
-import { product } from "@/utils/product";
 import React from "react";
 import ListRating from "../_component/ListRating";
+import { products } from "@/utils/products";
 
 type IParams = {
   productId?: string;
 };
 
 const ProductPage = ({ params }: { params: IParams }) => {
+  const product = products.find((item) => item.id === params.productId);
+
   return (
     <div className="p-8">
       <div className="container">
