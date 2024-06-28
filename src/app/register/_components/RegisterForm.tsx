@@ -41,6 +41,10 @@ const RegisterForm = () => {
             router.refresh();
             toast.success("Logged In");
           }
+
+          if (callback?.error) {
+            toast.error(callback.error);
+          }
         });
       })
       .catch(() => toast.error("Something wernt wrong"))
