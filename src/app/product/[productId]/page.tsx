@@ -1,6 +1,6 @@
 import ProductDetails from "@/components/products/ProductDetails";
 import React from "react";
-import ListRating from "../_component/ListRating";
+import ListRating from "../_components/ListRating";
 import { products } from "@/utils/products";
 
 type IParams = {
