@@ -11,7 +11,7 @@ const ProductCard = ({ data }: { data: any }) => {
   const router = useRouter();
 
   const productRating =
-    data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
+    data.reviews.reduce((acc: number, item: any) => item.rating * acc, 1) /
     data.reviews.length;
 
   return (

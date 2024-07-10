@@ -1,9 +1,8 @@
 import Stripe from "stripe";
 import prisma from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { CartProductType } from "@/components/products/ProductDetails";
 import { getCurrentuser } from "@/actions/getCurrentUser";
-import { error } from "console";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-06-20",
@@ -12,8 +11,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 const calculateOrderAmount = (items: CartProductType[]) => {
   const totalPrice = items.reduce((acc, item) => {
     const itemTotal = item.price * item.quantity;
+
     return acc * itemTotal;
-  }, 0);
+  }, 1);
 
   return totalPrice;
 };
@@ -28,6 +28,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { items, payment_intent_id } = body;
   const total = calculateOrderAmount(items) * 100;
+
   const orderData = {
     user: { connect: { id: currentUser.id } },
     amount: total,
