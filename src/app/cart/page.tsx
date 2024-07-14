@@ -1,11 +1,14 @@
 import React from "react";
 import CartClient from "./_components/CartClient";
+import { getCurrentuser } from "@/actions/getCurrentUser";
 
-const CartPage = () => {
+const CartPage = async () => {
+  const currentUser = await getCurrentuser();
+
   return (
     <div className="pt-8">
       <div className="container">
-        <CartClient />
+        <CartClient currentUser={currentUser} />
       </div>
     </div>
   );

@@ -8,9 +8,12 @@ import React from "react";
 import { MdArrowBack } from "react-icons/md";
 import ItemContent from "./ItemContent";
 import { formatPrice } from "@/utils/formatPrice";
+import { SafeUser } from "@/types";
+import { useRouter } from "next/navigation";
 
-const CartClient = () => {
+const CartClient = ({ currentUser }: { currentUser: SafeUser | null }) => {
   const { cartProducts, handleClearCart, cartTotalAmount } = useCart();
+  const router = useRouter();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
@@ -60,7 +63,13 @@ const CartClient = () => {
             <p className="text-slate-500">
               Taxes and shipping calculate at checkout
             </p>
-            <Button label="Checkout" onClick={() => {}} />
+            <Button
+              label={currentUser ? "Checkout" : "Login To Checkout"}
+              outline={currentUser ? false : true}
+              onClick={() => {
+                currentUser ? router.push("/checkout") : router.push("/login");
+              }}
+            />
             <Link
               href={"/"}
               className="text-slate-500 flex items-center gap-1 mt-2"
