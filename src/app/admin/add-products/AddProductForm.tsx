@@ -4,10 +4,24 @@ import Heading from "@/components/Heading";
 import CategoryInput from "@/components/inputs/CategoryInput";
 import CustomCheckBox from "@/components/inputs/CustomCheckBox";
 import Input from "@/components/inputs/Input";
+import SelectColor from "@/components/inputs/SelectColor";
 import TextArea from "@/components/inputs/TextArea";
 import { categories } from "@/utils/categories";
+import { colors } from "@/utils/colors";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+
+export type ImageType = {
+  color: string;
+  colorCode: string;
+  image: File | null;
+};
+
+export type UploadedImageType = {
+  color: string;
+  colorCode: string;
+  image: string;
+};
 
 const AddProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -112,7 +126,17 @@ const AddProductForm = () => {
             your color selection will be ignored
           </div>
         </div>
-        <div></div>
+        <div className="grid grid-cols-2 gap-3">
+          {colors.map((item, index) => (
+            <SelectColor
+              key={index}
+              item={item}
+              addImageToState={() => {}}
+              removeImageFromState={() => {}}
+              isProductCreated={false}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
