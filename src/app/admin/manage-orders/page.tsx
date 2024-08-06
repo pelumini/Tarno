@@ -1,11 +1,11 @@
 import React from "react";
-import ManageProductsClient from "../manage-products/ManageProductsClient";
-import { getProducts } from "@/actions/getProducts";
 import { getCurrentuser } from "@/actions/getCurrentUser";
 import NullData from "@/components/NullData";
+import { getOrders } from "@/actions/getOrders";
+import ManageOrdersClient from "./ManageOrdersClient";
 
 const ManageOrdersPage = async () => {
-  const products = await getProducts({ category: null });
+  const orders = await getOrders();
   const currentUser = await getCurrentuser();
 
   if (!currentUser || currentUser.role !== "ADMIN") {
@@ -15,7 +15,7 @@ const ManageOrdersPage = async () => {
   return (
     <div className="pt-8">
       <div className="container">
-        <ManageProductsClient products={products} />
+        <ManageOrdersClient orders={orders} />
       </div>
     </div>
   );

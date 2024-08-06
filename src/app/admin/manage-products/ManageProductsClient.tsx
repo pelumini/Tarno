@@ -17,9 +17,12 @@ import ActionBtn from "@/components/ActionBtn";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { deleteObject, getStorage, ref } from "firebase/storage";
+import firebaseApp from "@/lib/firebase";
 
 const ManageProductsClient = ({ products }: { products: Product[] }) => {
   const router = useRouter();
+  const storage = getStorage(firebaseApp);
   let rows: any = [];
 
   if (products) {
@@ -105,8 +108,14 @@ const ManageProductsClient = ({ products }: { products: Product[] }) => {
                 handleToggleStock(params.row.id, params.row.inStock)
               }
             />
-            <ActionBtn icon={MdDelete} onClick={() => null} />
-            <ActionBtn icon={MdRemoveRedEye} onClick={() => null} />
+            <ActionBtn
+              icon={MdDelete}
+              onClick={() => handleDelete(params.row.id, params.row.images)}
+            />
+            <ActionBtn
+              icon={MdRemoveRedEye}
+              onClick={() => router.push(`product/${params.row.id}`)}
+            />
           </div>
         );
       },
@@ -122,6 +131,37 @@ const ManageProductsClient = ({ products }: { products: Product[] }) => {
       })
       .catch((err) => {
         toast.error("Oops! Something went wrong");
+        console.log(err);
+      });
+  }, []);
+
+  const handleDelete = useCallback(async (id: string, images: any[]) => {
+    toast("Deleting product, please wait!");
+
+    const handleImageDelete = async () => {
+      try {
+        for (const item of images) {
+          if (item.image) {
+            const imageRef = ref(storage, item.image);
+            await deleteObject(imageRef);
+            console.log("image deleted", item.image);
+          }
+        }
+      } catch (error) {
+        return console.log("Deleting images error", error);
+      }
+    };
+
+    await handleImageDelete();
+
+    axios
+      .delete(`/api/product/${id}`)
+      .then((res) => {
+        toast.success("Product deleted");
+        router.refresh();
+      })
+      .catch((err) => {
+        toast.error("Failed to delete product");
         console.log(err);
       });
   }, []);
