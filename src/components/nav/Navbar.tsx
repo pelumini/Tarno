@@ -5,6 +5,7 @@ import { Syne } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
 import { getCurrentuser } from "@/actions/getCurrentUser";
+import Categories from "./Categories";
 
 const syne = Syne({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ const Navbar = async () => {
           </div>
         </div>
       </div>
+      <Categories />
     </div>
   );
 };
