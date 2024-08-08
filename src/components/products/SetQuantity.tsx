@@ -1,7 +1,7 @@
 "use client";
 
+import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import React from "react";
-import { CartProductType } from "./ProductDetails";
 
 type SetQuantityProps = {
   cartCounter?: boolean;

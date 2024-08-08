@@ -1,10 +1,10 @@
-import ProductDetails from "@/components/products/ProductDetails";
 import React from "react";
-import ListRating from "../_components/ListRating";
+import ListRating from "./ListRating";
 import getProductById from "@/actions/getProductById";
 import { getCurrentuser } from "@/actions/getCurrentUser";
 import NullData from "@/components/NullData";
 import AddRating from "./AddRating";
+import ProductDetails from "./ProductDetails";
 
 type IParams = {
   productId?: string;
